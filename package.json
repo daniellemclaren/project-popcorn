@@ -9,6 +9,7 @@
   "type": "module",
   "scripts": {
     "test:unit": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --coverage",
+    "test:features": "cucumber-js test/features",
     "quality:eslint": "eslint src/**/*.js",
     "quality:prettier-check": "prettier --check .",
     "quality:prettier-write": "prettier --write ."
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
+    "@cucumber/cucumber": "11.3.0",
     "eslint": "9.31.0",
     "eslint-config-prettier": "10.1.5",
     "eslint-plugin-prettier": "5.5.1",
