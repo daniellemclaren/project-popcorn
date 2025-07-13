@@ -1,4 +1,4 @@
-import TicketTypeRequest from '../../src/pairtest/lib/TicketTypeRequest.js';
+import TicketTypeRequest from '../../../../src/pairtest/lib/TicketTypeRequest.js';
 
 describe('TicketTypeRequest', () => {
   describe('Creating a ticket request', () => {
