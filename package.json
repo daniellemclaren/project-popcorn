@@ -8,7 +8,7 @@
   },
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:unit": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --coverage",
     "quality:eslint": "eslint src/**/*.js",
     "format:check": "prettier --check ."
   },
@@ -34,6 +34,7 @@
     "eslint-config-prettier": "10.1.5",
     "eslint-plugin-prettier": "5.5.1",
     "husky": "9.1.7",
+    "jest": "29.7.0",
     "lint-staged": "16.1.2",
     "prettier": "3.6.2"
   }
