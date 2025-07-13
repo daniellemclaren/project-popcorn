@@ -8,6 +8,7 @@ export const applyBusinessRules = ({ total, adult, child, infant }) => {
     );
   }
 
+  // adult requirement for CHILD or INFANT tickets to match current spec
   if (
     adult === 0 &&
     (child > 0 || infant > 0) &&
