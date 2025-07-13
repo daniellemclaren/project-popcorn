@@ -1,7 +1,6 @@
 import { jest } from '@jest/globals';
 
 let validatePurchaseRequest;
-let TicketTypeRequest;
 let countTicketTypesMock;
 let applyBusinessRulesMock;
 
@@ -30,9 +29,6 @@ jest.unstable_mockModule('../../../src/validation/helpers/applyBusinessRules.js'
 beforeAll(async () => {
   const validate = await import('../../../src/validation/validatePurchaseRequest.js');
   validatePurchaseRequest = validate.validatePurchaseRequest;
-
-  const ticketTypeModule = await import('../../../src/pairtest/lib/TicketTypeRequest.js');
-  TicketTypeRequest = ticketTypeModule.default;
 });
 
 describe('validatePurchaseRequest', () => {

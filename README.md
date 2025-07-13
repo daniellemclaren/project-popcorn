@@ -1,4 +1,4 @@
-# 🍿 Project Popcorn – Cinema Ticket Service
+# 🍿 Project Popcorn
 
 This is a Node.js service that processes ticket purchase requests for a cinema system.
 
@@ -42,9 +42,36 @@ This is a Node.js service that processes ticket purchase requests for a cinema s
 
 ---
 
-## 🛠 Tech Stack
+## 🚀 Getting Started
 
-- Node.js 20+
-- Jest
-- ESLint + Prettier
-- GitHub Actions (CI pipeline)
+### 1. Installing dependencies
+
+```bash
+nvm use
+npm install
+```
+
+### 2. Running unit tests
+
+```bash
+npm run test:unit
+```
+
+### 3. Running end to end tests
+
+```bash
+npm run test:features
+```
+
+### 4. Running all tests
+
+```bash
+npm run test:all
+```
+
+## 🔮 Potential Future Improvements
+
+- Add support for discount codes and ticket bundles
+- Automated test suite running daily
+- Metrics to track invalid requests or ticket totals
+- OpenAPI spec for documentation and testing
