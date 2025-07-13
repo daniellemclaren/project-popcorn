@@ -38,7 +38,7 @@ This is a Node.js service that processes ticket purchase requests for a cinema s
 - External services are reliable and succeed (as per provided constraints)
 - Ticket requests are received as immutable `TicketTypeRequest` instances
 - Only ADULT and CHILD tickets require seat reservations
-- Only one INFANT per ADULT is allowed, based on safety conventions in aviation and live event policies 
+- Only one INFANT per ADULT is allowed, based on safety conventions in aviation and live event policies
 
 ---
 
@@ -48,4 +48,3 @@ This is a Node.js service that processes ticket purchase requests for a cinema s
 - Jest
 - ESLint + Prettier
 - GitHub Actions (CI pipeline)
-

@@ -1,8 +1,7 @@
-import { validatePurchaseRequest } from '../validation/validatePurchaseRequest.js'
+import { validatePurchaseRequest } from '../validation/validatePurchaseRequest.js';
 import { TICKET_TYPES } from '../constants/ticketTypes.js';
 
 export default class TicketService {
-
   constructor(paymentService, reservationService) {
     this.paymentService = paymentService;
     this.reservationService = reservationService;
@@ -23,16 +22,12 @@ export default class TicketService {
   }
 
   #calculateTotalAmount({ adult, child }) {
-    return (
-      adult * TICKET_TYPES.ADULT.price +
-      child * TICKET_TYPES.CHILD.price
-    );
+    return adult * TICKET_TYPES.ADULT.price + child * TICKET_TYPES.CHILD.price;
   }
 
   #calculateSeatCount({ adult, child }) {
     return (
-      (TICKET_TYPES.ADULT.seatRequired ? adult : 0) +
-      (TICKET_TYPES.CHILD.seatRequired ? child : 0)
+      (TICKET_TYPES.ADULT.seatRequired ? adult : 0) + (TICKET_TYPES.CHILD.seatRequired ? child : 0)
     );
   }
 }

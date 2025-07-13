@@ -46,10 +46,7 @@ describe('countTicketTypes', () => {
   });
 
   it('adds multiple entries of the same type together', () => {
-    const requests = [
-      createRequest('ADULT', 1),
-      createRequest('ADULT', 3),
-    ];
+    const requests = [createRequest('ADULT', 1), createRequest('ADULT', 3)];
 
     const result = countTicketTypes(requests);
 
@@ -62,13 +59,9 @@ describe('countTicketTypes', () => {
   });
 
   it('treats ticket type case-insensitively through key conversion', () => {
-    const requests = [
-      createRequest('ADULT', 1),
-      createRequest('adult', 2),
-    ];
+    const requests = [createRequest('ADULT', 1), createRequest('adult', 2)];
 
     const result = countTicketTypes(requests);
-
 
     expect(result).toEqual({
       total: 3,

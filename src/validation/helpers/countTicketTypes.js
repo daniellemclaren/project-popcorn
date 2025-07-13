@@ -1,9 +1,9 @@
 export const countTicketTypes = (ticketRequests) =>
   ticketRequests.reduce(
     (acc, request) => {
-      const type = request.getTicketType();   
-      const key = type.toLowerCase();             
-      const count = request.getNoOfTickets();     
+      const type = request.getTicketType();
+      const key = type.toLowerCase();
+      const count = request.getNoOfTickets();
 
       acc.total += count;
       acc[key] += count;
