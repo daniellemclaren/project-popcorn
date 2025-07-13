@@ -1,6 +1,7 @@
 import { jest } from '@jest/globals';
 import TicketTypeRequest from '../../../src/pairtest/lib/TicketTypeRequest.js';
 import TicketService from '../../../src/pairtest/TicketService.js';
+import { TICKET_TYPES } from '../../../src/constants/ticketTypes.js';
 
 let ticketService;
 
