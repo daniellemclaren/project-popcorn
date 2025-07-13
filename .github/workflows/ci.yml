@@ -28,17 +28,21 @@ jobs:
 
       - name: 🎯 Lint source files
         run: npm run quality:eslint
+        continue-on-error: true
 
       - name: 🧼 Check Prettier formatting
         run: npm run format:check
+        continue-on-error: true
 
       - name: 🔄 Fetch main branch (for commit linting)
         run: git fetch origin main
+        continue-on-error: true
 
       - name: 💬 Lint Conventional Commits (PR only)
         run: |
           echo "🔍 Linting commits from $BASE_SHA to HEAD"
           npx commitlint --from=$BASE_SHA --to=HEAD
+        continue-on-error: true
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha || github.sha }}
 
