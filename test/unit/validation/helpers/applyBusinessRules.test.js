@@ -52,4 +52,11 @@ describe('applyBusinessRules', () => {
     const input = { total: 2, adult: 2, child: 0, infant: 0 };
     expect(() => applyBusinessRules(input)).not.toThrow();
   });
+
+  it('should throw if only an infant is present without an adult', () => {
+    const input = { total: 1, adult: 0, child: 0, infant: 1 };
+    expect(() => applyBusinessRules(input)).toThrow(
+      'CHILD or INFANT tickets require at least one ADULT'
+    );
+  });
 });
