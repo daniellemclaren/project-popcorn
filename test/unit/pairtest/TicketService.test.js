@@ -46,4 +46,33 @@ describe('TicketService', () => {
       expectedSeats
     );
   });
+  it('calculates seat count correctly when seatRequired is false for some ticket types', () => {
+    TICKET_TYPES.ADULT.seatRequired = false;
+    TICKET_TYPES.CHILD.seatRequired = false;
+    TICKET_TYPES.INFANT.seatRequired = false;
+
+    const accountId = 456;
+
+    const requests = [
+      new TicketTypeRequest('ADULT', 2),
+      new TicketTypeRequest('CHILD', 1),
+      new TicketTypeRequest('INFANT', 1),
+    ];
+
+    const expectedAmount =
+      2 * TICKET_TYPES.ADULT.price + 1 * TICKET_TYPES.CHILD.price + 1 * TICKET_TYPES.INFANT.price;
+
+    const expectedSeats = 0;
+
+    ticketService.purchaseTickets(accountId, ...requests);
+
+    expect(ticketService.paymentService.makePayment).toHaveBeenCalledWith(
+      accountId,
+      expectedAmount
+    );
+    expect(ticketService.reservationService.reserveSeat).toHaveBeenCalledWith(
+      accountId,
+      expectedSeats
+    );
+  });
 });
