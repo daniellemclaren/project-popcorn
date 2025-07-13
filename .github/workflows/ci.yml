@@ -30,7 +30,7 @@ jobs:
         run: npm run quality:eslint
 
       - name: 🧼 Check Prettier formatting
-        run: npm run format:check
+        run: npm run quality:prettier-check
 
       - name: 🔄 Fetch main branch (for commit linting)
         run: git fetch origin main
