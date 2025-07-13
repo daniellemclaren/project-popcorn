@@ -19,13 +19,16 @@ countTicketTypesMock = jest.fn(() => ({
 
 applyBusinessRulesMock = jest.fn();
 
-jest.unstable_mockModule('../../../src/validation/helpers/countTicketTypes.js', () => ({
-  countTicketTypes: countTicketTypesMock,
-}));
+jest.unstable_mockModule(
+  '../../../src/validation/helpers/countTicketTypes.js',
+  () => ({ countTicketTypes: countTicketTypesMock })
+);
 
-jest.unstable_mockModule('../../../src/validation/helpers/applyBusinessRules.js', () => ({
-  applyBusinessRules: applyBusinessRulesMock,
-}));
+jest.unstable_mockModule(
+  '../../../src/validation/helpers/applyBusinessRules.js',
+  () => ({ applyBusinessRules: applyBusinessRulesMock })
+);
+
 
 beforeAll(async () => {
   const validate = await import('../../../src/validation/validatePurchaseRequest.js');
@@ -41,43 +44,39 @@ describe('validatePurchaseRequest', () => {
     applyBusinessRulesMock.mockClear();
   });
 
-  describe('when given valid input', () => {
-    it('allows a valid ADULT ticket request', () => {
-      const requests = [createRequest('ADULT', 2)];
-      expect(() => validatePurchaseRequest(1, requests)).not.toThrow();
-    });
+  it('should pass for valid ADULT ticket', () => {
+    const requests = [createRequest('ADULT', 2)];
+    expect(() => validatePurchaseRequest(1, requests)).not.toThrow();
   });
 
-  describe('when given invalid input', () => {
-    it('throws if the account ID is not a positive whole number', () => {
-      expect(() => validatePurchaseRequest(0, [])).toThrow('Invalid account ID');
-    });
+  it('should throw for invalid account ID', () => {
+    expect(() => validatePurchaseRequest(0, [])).toThrow('Invalid account ID');
+  });
 
-    it('throws if no ticket requests are provided', () => {
-      expect(() => validatePurchaseRequest(1, [])).toThrow('No ticket requests provided');
-    });
+  it('should throw for empty ticket request list', () => {
+    expect(() => validatePurchaseRequest(1, [])).toThrow('No ticket requests provided');
+  });
 
-    it('throws if the ticket type is not recognised', () => {
-      const requests = [createRequest('ALIEN', 1)];
-      expect(() => validatePurchaseRequest(1, requests)).toThrow('Unknown ticket type');
-    });
+  it('should throw for unknown ticket type', () => {
+    const requests = [createRequest('ALIEN', 1)];
+    expect(() => validatePurchaseRequest(1, requests)).toThrow('Unknown ticket type');
+  });
 
-    it('throws if the ticket count is not a whole number', () => {
-      const requests = [createRequest('ADULT', 'two')];
-      expect(() => validatePurchaseRequest(1, requests)).toThrow('Invalid ticket count for ADULT');
-    });
+  it('should throw for non-integer ticket count', () => {
+    const requests = [createRequest('ADULT', 'two')];
+    expect(() => validatePurchaseRequest(1, requests)).toThrow('Invalid ticket count for ADULT');
+  });
 
-    it('throws if the ticket count is zero or less', () => {
-      const requests = [createRequest('ADULT', 0)];
-      expect(() => validatePurchaseRequest(1, requests)).toThrow('Invalid ticket count for ADULT');
-    });
-    
-    it('calls countTicketTypes and applyBusinessRules after validation', () => {
-      const requests = [createRequest('ADULT', 1)];
-      validatePurchaseRequest(123, requests);
+  it('should throw for zero ticket count', () => {
+    const requests = [createRequest('ADULT', 0)];
+    expect(() => validatePurchaseRequest(1, requests)).toThrow('Invalid ticket count for ADULT');
+  });
 
-      expect(countTicketTypesMock).toHaveBeenCalledWith(requests);
-      expect(applyBusinessRulesMock).toHaveBeenCalled();
-    });
+  it('should call countTicketTypes and applyBusinessRules', () => {
+    const requests = [createRequest('ADULT', 1)];
+    validatePurchaseRequest(123, requests);
+
+    expect(countTicketTypesMock).toHaveBeenCalledWith(requests);
+    expect(applyBusinessRulesMock).toHaveBeenCalled();
   });
 });
