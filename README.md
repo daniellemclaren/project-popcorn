@@ -44,6 +44,9 @@ This is a Node.js service that processes ticket purchase requests for a cinema s
 
 ## 🚀 Getting Started
 
+⚠️ **Outstanding issue when running on Mac OS** ⚠️
+https://github.com/daniellemclaren/project-popcorn/issues/13
+
 ### 1. Installing dependencies
 
 ```bash
