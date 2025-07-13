@@ -10,7 +10,8 @@
   "scripts": {
     "test:unit": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --coverage",
     "quality:eslint": "eslint src/**/*.js",
-    "format:check": "prettier --check ."
+    "quality:prettier-check": "prettier --check .",
+    "quality:prettier-write": "prettier --write ."
   },
   "main": "index.js",
   "directories": {
