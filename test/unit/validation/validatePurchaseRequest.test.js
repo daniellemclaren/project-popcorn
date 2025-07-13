@@ -19,16 +19,13 @@ countTicketTypesMock = jest.fn(() => ({
 
 applyBusinessRulesMock = jest.fn();
 
-jest.unstable_mockModule(
-  '../../../src/validation/helpers/countTicketTypes.js',
-  () => ({ countTicketTypes: countTicketTypesMock })
-);
+jest.unstable_mockModule('../../../src/validation/helpers/countTicketTypes.js', () => ({
+  countTicketTypes: countTicketTypesMock,
+}));
 
-jest.unstable_mockModule(
-  '../../../src/validation/helpers/applyBusinessRules.js',
-  () => ({ applyBusinessRules: applyBusinessRulesMock })
-);
-
+jest.unstable_mockModule('../../../src/validation/helpers/applyBusinessRules.js', () => ({
+  applyBusinessRules: applyBusinessRulesMock,
+}));
 
 beforeAll(async () => {
   const validate = await import('../../../src/validation/validatePurchaseRequest.js');
@@ -78,5 +75,22 @@ describe('validatePurchaseRequest', () => {
 
     expect(countTicketTypesMock).toHaveBeenCalledWith(requests);
     expect(applyBusinessRulesMock).toHaveBeenCalled();
+  });
+
+  it('should return ticket counts from countTicketTypes', () => {
+    const requests = [
+      createRequest('ADULT', 1),
+      createRequest('CHILD', 1),
+      createRequest('INFANT', 1),
+    ];
+
+    const result = validatePurchaseRequest(123, requests);
+
+    expect(result).toEqual({
+      total: 3,
+      adult: 1,
+      child: 1,
+      infant: 1,
+    });
   });
 });

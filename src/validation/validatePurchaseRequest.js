@@ -29,5 +29,8 @@ export function validatePurchaseRequest(accountId, ticketTypeRequests) {
   }
 
   const ticketCounts = countTicketTypes(ticketTypeRequests);
+
   applyBusinessRules(ticketCounts);
+  
+  return ticketCounts; 
 }
