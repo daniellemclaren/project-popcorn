@@ -20,7 +20,7 @@ describe('businessRules constants', () => {
 
   it('only includes recognised ticket types in REQUIRE_ADULT_FOR_TYPES', () => {
     const validTypes = ['ADULT', 'CHILD', 'INFANT'];
-    const allValid = BUSINESS_RULES.REQUIRE_ADULT_FOR_TYPES.every(type =>
+    const allValid = BUSINESS_RULES.REQUIRE_ADULT_FOR_TYPES.every((type) =>
       validTypes.includes(type)
     );
     expect(allValid).toBe(true);
