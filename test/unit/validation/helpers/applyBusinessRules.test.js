@@ -1,7 +1,6 @@
 import { jest } from '@jest/globals';
 
 let applyBusinessRules;
-let InvalidPurchaseException;
 
 const mockRules = {
   MAX_TICKETS_PER_PURCHASE: 25,
@@ -16,9 +15,6 @@ jest.unstable_mockModule('../../../../src/constants/businessRules.js', () => ({
 beforeAll(async () => {
   const func = await import('../../../../src/validation/helpers/applyBusinessRules.js');
   applyBusinessRules = func.applyBusinessRules;
-
-  const invalidError = await import('../../../../src/pairtest/lib/InvalidPurchaseException.js');
-  InvalidPurchaseException = invalidError.default;
 });
 
 describe('applyBusinessRules', () => {
