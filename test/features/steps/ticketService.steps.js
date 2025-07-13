@@ -3,11 +3,6 @@ import assert from 'node:assert';
 import TicketService from '../../../src/pairtest/TicketService.js';
 import TicketTypeRequest from '../../../src/pairtest/lib/TicketTypeRequest.js';
 
-let accountId;
-let ticketService;
-let paymentMock, reservationMock;
-let ticketRequests = [];
-
 Given('an account ID of {int}', function (id) {
   this.accountId = id;
 });
