@@ -12,11 +12,9 @@
     "test:all": "npm run test:unit && npm run test:features",
     "test:unit": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --coverage test/unit",
     "test:features": "cucumber-js test/features --format progress",
-
     "quality:eslint": "eslint .",
     "quality:prettier-check": "prettier --check .",
     "quality:prettier-write": "prettier --write ."
-
   },
   "repository": {
     "type": "git",
@@ -39,7 +37,6 @@
   ],
   "license": "ISC",
   "author": "Danielle McLaren",
-
   "dependencies": {
     "joi": "17.13.3"
   },
