@@ -1,5 +1,6 @@
 import TicketTypeRequest from './lib/TicketTypeRequest.js';
 import InvalidPurchaseException from './lib/InvalidPurchaseException.js';
+import { validatePurchaseRequest } from '../validation/validatePurchaseRequest.js'
 
 export default class TicketService {
   /**
@@ -7,6 +8,6 @@ export default class TicketService {
    */
 
   purchaseTickets(accountId, ...ticketTypeRequests) {
-    // throws InvalidPurchaseException
+    validatePurchaseRequest(accountId, ticketTypeRequests);
   }
 }
