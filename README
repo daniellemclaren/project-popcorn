@@ -1,6 +1,6 @@
 # 🍿 Project Popcorn – Cinema Ticket Service
 
-This is a Node.js service that processes ticket purchase requests for a cinema system. It enforces business rules, calculates payments and seat reservations, and integrates with external services for payment and booking. The project uses TDD and BDD development, CI integration, and production ready practices.
+This is a Node.js service that processes ticket purchase requests for a cinema system.
 
 ![CI](https://github.com/daniellemclaren/project-popcorn/actions/workflows/ci.yml/badge.svg)
 
