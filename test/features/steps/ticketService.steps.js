@@ -30,7 +30,6 @@ When('I purchase the tickets', function () {
   this.ticketService.purchaseTickets(this.accountId, ...this.ticketRequests);
 });
 
-
 Then('the payment service should be called with £{int}', function (expectedAmount) {
   assert.deepStrictEqual(this.paymentCalledWith, [this.accountId, expectedAmount]);
 });
