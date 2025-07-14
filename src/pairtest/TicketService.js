@@ -1,5 +1,5 @@
 import { validatePurchaseRequest } from '../validation/validatePurchaseRequest.js';
-import { TICKET_TYPES } from '../constants/ticketTypes.js';
+import { calculateTotals } from '../validation/helpers/calculateTotals.js';
 
 export default class TicketService {
   constructor(paymentService, reservationService) {
@@ -7,27 +7,19 @@ export default class TicketService {
     this.reservationService = reservationService;
   }
 
-  /**
-   * Should only have private methods other than the one below.
-   */
-
   purchaseTickets(accountId, ...ticketTypeRequests) {
     const ticketCounts = validatePurchaseRequest(accountId, ticketTypeRequests);
 
-    const totalAmount = this.#calculateTotalAmount(ticketCounts);
-    const seatCount = this.#calculateSeatCount(ticketCounts);
+    const { totalAmountToPay, totalSeatsToAllocate } = calculateTotals(ticketCounts);
 
-    this.paymentService.makePayment(accountId, totalAmount);
-    this.reservationService.reserveSeat(accountId, seatCount);
-  }
+    this.paymentService.makePayment(accountId, totalAmountToPay);
+    this.reservationService.reserveSeat(accountId, totalSeatsToAllocate);
 
-  #calculateTotalAmount({ adult, child }) {
-    return adult * TICKET_TYPES.ADULT.price + child * TICKET_TYPES.CHILD.price;
-  }
-
-  #calculateSeatCount({ adult, child }) {
-    return (
-      (TICKET_TYPES.ADULT.seatRequired ? adult : 0) + (TICKET_TYPES.CHILD.seatRequired ? child : 0)
-    );
+    return {
+      message: `Successfully purchased ${ticketCounts.total} tickets for £${totalAmountToPay}`,
+      totalAmount: totalAmountToPay,
+      totalSeats: totalSeatsToAllocate,
+      ticketBreakdown: ticketCounts,
+    };
   }
 }
