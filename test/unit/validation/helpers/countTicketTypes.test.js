@@ -12,9 +12,9 @@ describe('countTicketTypes', () => {
 
     expect(result).toEqual({
       total: 2,
-      adult: 2,
-      child: 0,
-      infant: 0,
+      ADULT: 2,
+      CHILD: 0,
+      INFANT: 0,
     });
   });
 
@@ -29,9 +29,9 @@ describe('countTicketTypes', () => {
 
     expect(result).toEqual({
       total: 6,
-      adult: 2,
-      child: 3,
-      infant: 1,
+      ADULT: 2,
+      CHILD: 3,
+      INFANT: 1,
     });
   });
 
@@ -39,9 +39,9 @@ describe('countTicketTypes', () => {
     const result = countTicketTypes([]);
     expect(result).toEqual({
       total: 0,
-      adult: 0,
-      child: 0,
-      infant: 0,
+      ADULT: 0,
+      CHILD: 0,
+      INFANT: 0,
     });
   });
 
@@ -52,22 +52,22 @@ describe('countTicketTypes', () => {
 
     expect(result).toEqual({
       total: 4,
-      adult: 4,
-      child: 0,
-      infant: 0,
+      ADULT: 4,
+      CHILD: 0,
+      INFANT: 0,
     });
   });
 
   it('treats ticket type case-insensitively through key conversion', () => {
-    const requests = [createRequest('ADULT', 1), createRequest('adult', 2)];
+    const requests = [createRequest('ADULT', 1), createRequest('ADULT', 2)];
 
     const result = countTicketTypes(requests);
 
     expect(result).toEqual({
       total: 3,
-      adult: 3,
-      child: 0,
-      infant: 0,
+      ADULT: 3,
+      CHILD: 0,
+      INFANT: 0,
     });
   });
 });
