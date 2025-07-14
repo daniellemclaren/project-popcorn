@@ -19,38 +19,38 @@ beforeAll(async () => {
 
 describe('applyBusinessRules', () => {
   it('should throw if more than the maximum number of tickets are purchased', () => {
-    const input = { total: 26, adult: 21, child: 5, infant: 0 };
+    const input = { total: 26, ADULT: 21, CHILD: 5, INFANT: 0 };
     expect(() => applyBusinessRules(input)).toThrow(
       `Cannot purchase more than ${mockRules.MAX_TICKETS_PER_PURCHASE} tickets`
     );
   });
 
-  it('should throw if a child or infant is present without an adult', () => {
-    const input = { total: 2, adult: 0, child: 1, infant: 1 };
+  it('should throw if a CHILD or INFANT is present without an ADULT', () => {
+    const input = { total: 2, ADULT: 0, CHILD: 1, INFANT: 1 };
     expect(() => applyBusinessRules(input)).toThrow(
       'CHILD or INFANT tickets require at least one ADULT'
     );
   });
 
-  it('should throw if the infant to adult ratio is exceeded', () => {
-    const input = { total: 3, adult: 1, child: 0, infant: 2 };
+  it('should throw if the INFANT to ADULT ratio is exceeded', () => {
+    const input = { total: 3, ADULT: 1, CHILD: 0, INFANT: 2 };
     expect(() => applyBusinessRules(input)).toThrow(
       `Each ADULT may accompany up to ${mockRules.MAX_INFANTS_PER_ADULT} INFANT`
     );
   });
 
   it('should allow a valid order without throwing an error', () => {
-    const input = { total: 4, adult: 2, child: 1, infant: 1 };
+    const input = { total: 4, ADULT: 2, CHILD: 1, INFANT: 1 };
     expect(() => applyBusinessRules(input)).not.toThrow();
   });
 
-  it('should allow an order with only adults', () => {
-    const input = { total: 2, adult: 2, child: 0, infant: 0 };
+  it('should allow an order with only ADULTs', () => {
+    const input = { total: 2, ADULT: 2, CHILD: 0, INFANT: 0 };
     expect(() => applyBusinessRules(input)).not.toThrow();
   });
 
-  it('should throw if only an infant is present without an adult', () => {
-    const input = { total: 1, adult: 0, child: 0, infant: 1 };
+  it('should throw if only an INFANT is present without an ADULT', () => {
+    const input = { total: 1, ADULT: 0, CHILD: 0, INFANT: 1 };
     expect(() => applyBusinessRules(input)).toThrow(
       'CHILD or INFANT tickets require at least one ADULT'
     );

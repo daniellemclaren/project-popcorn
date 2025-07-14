@@ -5,7 +5,7 @@ import { TICKET_TYPES } from '../constants/ticketTypes.js';
 
 const isValidTicketType = (type) => type in TICKET_TYPES;
 
-export function validatePurchaseRequest(accountId, ticketTypeRequests) {
+export const validatePurchaseRequest = (accountId, ticketTypeRequests) => {
   if (!Number.isInteger(accountId) || accountId <= 0) {
     throw new InvalidPurchaseException('Invalid account ID');
   }
@@ -32,4 +32,4 @@ export function validatePurchaseRequest(accountId, ticketTypeRequests) {
   applyBusinessRules(ticketCounts);
 
   return ticketCounts;
-}
+};
