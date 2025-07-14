@@ -21,11 +21,11 @@ export default class TicketService {
         message: `Successfully purchased ${ticketCounts.total} tickets for £${totalAmountToPay}`,
         totalAmount: totalAmountToPay,
         totalSeats: totalSeatsToAllocate,
-        ticketBreakdown: ticketCounts
+        ticketBreakdown: ticketCounts,
       };
     } catch (error) {
       if (error instanceof InvalidPurchaseException) {
-        throw error; 
+        throw error;
       }
 
       throw new InvalidPurchaseException(`Ticket purchase failed: ${error.message}`);

@@ -14,9 +14,7 @@ export const applyBusinessRules = (ticketCounts) => {
 
   const restrictedTypes = BUSINESS_RULES.REQUIRE_ADULT_FOR_TYPES;
 
-  const hasRestrictedTickets = restrictedTypes.some(
-    (type) => (ticketCounts[type] || 0) > 0
-  );
+  const hasRestrictedTickets = restrictedTypes.some((type) => (ticketCounts[type] || 0) > 0);
 
   if (adultCount === 0 && hasRestrictedTickets) {
     throw new InvalidPurchaseException(

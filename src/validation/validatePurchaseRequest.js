@@ -32,4 +32,4 @@ export const validatePurchaseRequest = (accountId, ticketTypeRequests) => {
   applyBusinessRules(ticketCounts);
 
   return ticketCounts;
-}
+};

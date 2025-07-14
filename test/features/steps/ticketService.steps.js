@@ -17,10 +17,10 @@ Given('the payment service will fail with {string}', function (message) {
   this.paymentMock = {
     makePayment: () => {
       throw new Error(message);
-    }
+    },
   };
   this.reservationMock = {
-    reserveSeat: () => {}
+    reserveSeat: () => {},
   };
 });
 
@@ -29,7 +29,7 @@ Given('the seat reservation service will fail with {string}', function (message)
   this.reservationMock = {
     reserveSeat: () => {
       throw new Error(message);
-    }
+    },
   };
 });
 
@@ -38,13 +38,13 @@ When('I purchase the tickets', function () {
   this.paymentMock = {
     makePayment: (...args) => {
       this.paymentCalledWith = args;
-    }
+    },
   };
 
   this.reservationMock = {
     reserveSeat: (...args) => {
       this.reservationCalledWith = args;
-    }
+    },
   };
 
   this.ticketService = new TicketService(this.paymentMock, this.reservationMock);
