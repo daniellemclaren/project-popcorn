@@ -21,6 +21,6 @@ export const calculateTotals = (ticketCounts) => {
 
   return {
     totalAmountToPay,
-    totalSeatsToAllocate
+    totalSeatsToAllocate,
   };
 };
