@@ -13,9 +13,9 @@ beforeEach(() => {
 
 describe('TicketService', () => {
   it('throws an error if accountId is invalid', () => {
-    expect(() =>
-      ticketService.purchaseTickets(0, new TicketTypeRequest('ADULT', 1))
-    ).toThrow('Invalid account ID');
+    expect(() => ticketService.purchaseTickets(0, new TicketTypeRequest('ADULT', 1))).toThrow(
+      'Invalid account ID'
+    );
   });
 
   it('calls payment and reservation services with correct values and returns purchase summary', () => {
@@ -24,19 +24,23 @@ describe('TicketService', () => {
     const requests = [
       new TicketTypeRequest('ADULT', 2),
       new TicketTypeRequest('CHILD', 1),
-      new TicketTypeRequest('INFANT', 1)
+      new TicketTypeRequest('INFANT', 1),
     ];
 
-    const expectedAmount =
-      2 * TICKET_TYPES.ADULT.price +
-      1 * TICKET_TYPES.CHILD.price;
+    const expectedAmount = 2 * TICKET_TYPES.ADULT.price + 1 * TICKET_TYPES.CHILD.price;
 
     const expectedSeats = 3;
 
     const result = ticketService.purchaseTickets(accountId, ...requests);
 
-    expect(ticketService.paymentService.makePayment).toHaveBeenCalledWith(accountId, expectedAmount);
-    expect(ticketService.reservationService.reserveSeat).toHaveBeenCalledWith(accountId, expectedSeats);
+    expect(ticketService.paymentService.makePayment).toHaveBeenCalledWith(
+      accountId,
+      expectedAmount
+    );
+    expect(ticketService.reservationService.reserveSeat).toHaveBeenCalledWith(
+      accountId,
+      expectedSeats
+    );
 
     expect(result).toEqual({
       message: 'Successfully purchased 4 tickets for £65',
@@ -46,8 +50,8 @@ describe('TicketService', () => {
         ADULT: 2,
         CHILD: 1,
         INFANT: 1,
-        total: 4
-      }
+        total: 4,
+      },
     });
   });
 
@@ -61,7 +65,7 @@ describe('TicketService', () => {
     const requests = [
       new TicketTypeRequest('ADULT', 2),
       new TicketTypeRequest('CHILD', 1),
-      new TicketTypeRequest('INFANT', 1)
+      new TicketTypeRequest('INFANT', 1),
     ];
 
     const expectedAmount = 65;
@@ -70,8 +74,14 @@ describe('TicketService', () => {
 
     const result = ticketService.purchaseTickets(accountId, ...requests);
 
-    expect(ticketService.paymentService.makePayment).toHaveBeenCalledWith(accountId, expectedAmount);
-    expect(ticketService.reservationService.reserveSeat).toHaveBeenCalledWith(accountId, expectedSeats);
+    expect(ticketService.paymentService.makePayment).toHaveBeenCalledWith(
+      accountId,
+      expectedAmount
+    );
+    expect(ticketService.reservationService.reserveSeat).toHaveBeenCalledWith(
+      accountId,
+      expectedSeats
+    );
 
     expect(result).toEqual({
       message: expect.stringContaining('Successfully purchased'),
@@ -81,8 +91,8 @@ describe('TicketService', () => {
         ADULT: 2,
         CHILD: 1,
         INFANT: 1,
-        total: 4
-      }
+        total: 4,
+      },
     });
   });
 });
