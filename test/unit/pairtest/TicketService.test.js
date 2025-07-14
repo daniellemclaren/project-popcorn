@@ -95,4 +95,20 @@ describe('TicketService', () => {
       },
     });
   });
+  it('catches unexpected errors and throws an InvalidPurchaseException', () => {
+    const badService = new TicketService(
+      {
+        makePayment: jest.fn(() => {
+          throw new Error('Payment system down');
+        }),
+      },
+      { reserveSeat: jest.fn() }
+    );
+
+    const request = new TicketTypeRequest('ADULT', 1);
+
+    expect(() => badService.purchaseTickets(123, request)).toThrow(
+      'Ticket purchase failed: Payment system down'
+    );
+  });
 });
