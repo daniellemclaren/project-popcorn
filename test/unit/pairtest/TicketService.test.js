@@ -13,39 +13,44 @@ beforeEach(() => {
 
 describe('TicketService', () => {
   it('throws an error if accountId is invalid', () => {
-    expect(() => ticketService.purchaseTickets(0, new TicketTypeRequest('ADULT', 1))).toThrow(
-      'Invalid account ID'
-    );
+    expect(() =>
+      ticketService.purchaseTickets(0, new TicketTypeRequest('ADULT', 1))
+    ).toThrow('Invalid account ID');
   });
 
-  it('calls payment and reservation services with correct values', () => {
+  it('calls payment and reservation services with correct values and returns purchase summary', () => {
     const accountId = 123;
 
     const requests = [
       new TicketTypeRequest('ADULT', 2),
       new TicketTypeRequest('CHILD', 1),
-      new TicketTypeRequest('INFANT', 1),
+      new TicketTypeRequest('INFANT', 1)
     ];
 
     const expectedAmount =
-      2 * TICKET_TYPES.ADULT.price + 1 * TICKET_TYPES.CHILD.price + 1 * TICKET_TYPES.INFANT.price;
+      2 * TICKET_TYPES.ADULT.price +
+      1 * TICKET_TYPES.CHILD.price;
 
-    const expectedSeats =
-      (TICKET_TYPES.ADULT.seatRequired ? 2 : 0) +
-      (TICKET_TYPES.CHILD.seatRequired ? 1 : 0) +
-      (TICKET_TYPES.INFANT.seatRequired ? 1 : 0);
+    const expectedSeats = 3;
 
-    ticketService.purchaseTickets(accountId, ...requests);
+    const result = ticketService.purchaseTickets(accountId, ...requests);
 
-    expect(ticketService.paymentService.makePayment).toHaveBeenCalledWith(
-      accountId,
-      expectedAmount
-    );
-    expect(ticketService.reservationService.reserveSeat).toHaveBeenCalledWith(
-      accountId,
-      expectedSeats
-    );
+    expect(ticketService.paymentService.makePayment).toHaveBeenCalledWith(accountId, expectedAmount);
+    expect(ticketService.reservationService.reserveSeat).toHaveBeenCalledWith(accountId, expectedSeats);
+
+    expect(result).toEqual({
+      message: 'Successfully purchased 4 tickets for £65',
+      totalAmount: expectedAmount,
+      totalSeats: expectedSeats,
+      ticketBreakdown: {
+        ADULT: 2,
+        CHILD: 1,
+        INFANT: 1,
+        total: 4
+      }
+    });
   });
+
   it('calculates seat count correctly when seatRequired is false for some ticket types', () => {
     TICKET_TYPES.ADULT.seatRequired = false;
     TICKET_TYPES.CHILD.seatRequired = false;
@@ -56,23 +61,28 @@ describe('TicketService', () => {
     const requests = [
       new TicketTypeRequest('ADULT', 2),
       new TicketTypeRequest('CHILD', 1),
-      new TicketTypeRequest('INFANT', 1),
+      new TicketTypeRequest('INFANT', 1)
     ];
 
-    const expectedAmount =
-      2 * TICKET_TYPES.ADULT.price + 1 * TICKET_TYPES.CHILD.price + 1 * TICKET_TYPES.INFANT.price;
+    const expectedAmount = 65;
 
     const expectedSeats = 0;
 
-    ticketService.purchaseTickets(accountId, ...requests);
+    const result = ticketService.purchaseTickets(accountId, ...requests);
 
-    expect(ticketService.paymentService.makePayment).toHaveBeenCalledWith(
-      accountId,
-      expectedAmount
-    );
-    expect(ticketService.reservationService.reserveSeat).toHaveBeenCalledWith(
-      accountId,
-      expectedSeats
-    );
+    expect(ticketService.paymentService.makePayment).toHaveBeenCalledWith(accountId, expectedAmount);
+    expect(ticketService.reservationService.reserveSeat).toHaveBeenCalledWith(accountId, expectedSeats);
+
+    expect(result).toEqual({
+      message: expect.stringContaining('Successfully purchased'),
+      totalAmount: expectedAmount,
+      totalSeats: expectedSeats,
+      ticketBreakdown: {
+        ADULT: 2,
+        CHILD: 1,
+        INFANT: 1,
+        total: 4
+      }
+    });
   });
 });
