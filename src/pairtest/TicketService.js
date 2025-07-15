@@ -1,18 +1,23 @@
 import { validatePurchaseRequest } from '../validation/validatePurchaseRequest.js';
 import { calculateTotals } from '../validation/helpers/calculateTotals.js';
 import InvalidPurchaseException from './lib/InvalidPurchaseException.js';
+import { TICKET_TYPES } from '../constants/ticketTypes.js';
 
 export default class TicketService {
-  constructor(paymentService, reservationService) {
+  constructor(paymentService, reservationService, ticketConfig = TICKET_TYPES) {
     this.paymentService = paymentService;
     this.reservationService = reservationService;
+    this.ticketConfig = ticketConfig;
   }
 
   /* purchaseTickets is the only public method */
   purchaseTickets(accountId, ...ticketTypeRequests) {
     try {
       const ticketCounts = validatePurchaseRequest(accountId, ticketTypeRequests);
-      const { totalAmountToPay, totalSeatsToAllocate } = calculateTotals(ticketCounts);
+      const { totalAmountToPay, totalSeatsToAllocate } = calculateTotals(
+        ticketCounts,
+        this.ticketConfig
+      );
 
       this.paymentService.makePayment(accountId, totalAmountToPay);
       this.reservationService.reserveSeat(accountId, totalSeatsToAllocate);

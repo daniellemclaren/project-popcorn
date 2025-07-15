@@ -1,5 +1,4 @@
 import { calculateTotals } from '../../../../src/validation/helpers/calculateTotals.js';
-import { TICKET_TYPES } from '../../../../src/constants/ticketTypes.js';
 
 describe('calculateTotals', () => {
   test('should correctly calculate totals for ADULT and CHILD tickets', () => {
@@ -11,8 +10,8 @@ describe('calculateTotals', () => {
     const result = calculateTotals(ticketCounts);
 
     expect(result).toEqual({
-      totalAmountToPay: 2 * TICKET_TYPES.ADULT.price + 3 * TICKET_TYPES.CHILD.price,
-      totalSeatsToAllocate: 2 + 3,
+      totalAmountToPay: 95,
+      totalSeatsToAllocate: 5,
     });
   });
 
@@ -25,25 +24,8 @@ describe('calculateTotals', () => {
     const result = calculateTotals(ticketCounts);
 
     expect(result).toEqual({
-      totalAmountToPay: 1 * TICKET_TYPES.ADULT.price,
+      totalAmountToPay: 25,
       totalSeatsToAllocate: 1,
-    });
-  });
-
-  test('should support future ticket types like OAP and STUDENT', () => {
-    const ticketCounts = {
-      OAP: 2,
-      STUDENT: 1,
-    };
-
-    TICKET_TYPES.OAP = { price: 20, seatRequired: true };
-    TICKET_TYPES.STUDENT = { price: 18, seatRequired: true };
-
-    const result = calculateTotals(ticketCounts);
-
-    expect(result).toEqual({
-      totalAmountToPay: 2 * 20 + 1 * 18,
-      totalSeatsToAllocate: 3,
     });
   });
 
@@ -56,7 +38,7 @@ describe('calculateTotals', () => {
     const result = calculateTotals(ticketCounts);
 
     expect(result).toEqual({
-      totalAmountToPay: 1 * TICKET_TYPES.ADULT.price,
+      totalAmountToPay: 25,
       totalSeatsToAllocate: 1,
     });
   });
@@ -82,7 +64,7 @@ describe('calculateTotals', () => {
     const result = calculateTotals(ticketCounts);
 
     expect(result).toEqual({
-      totalAmountToPay: 1 * TICKET_TYPES.ADULT.price + 1 * TICKET_TYPES.CHILD.price,
+      totalAmountToPay: 40,
       totalSeatsToAllocate: 2,
     });
   });

@@ -1,6 +1,7 @@
 import { validateTicketTypes } from '../validation/validateTicketTypes.js';
+import { deepFreeze } from '../validation/helpers/deepFreezeObject.js';
 
-export const TICKET_TYPES = {
+const ticketTypes = {
   ADULT: {
     price: 25,
     seatRequired: true,
@@ -16,4 +17,5 @@ export const TICKET_TYPES = {
   },
 };
 
-validateTicketTypes(TICKET_TYPES);
+validateTicketTypes(ticketTypes);
+export const TICKET_TYPES = deepFreeze(ticketTypes);
