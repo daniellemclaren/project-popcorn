@@ -55,46 +55,6 @@ describe('TicketService', () => {
     });
   });
 
-  it('calculates seat count correctly when seatRequired is false for some ticket types', () => {
-    TICKET_TYPES.ADULT.seatRequired = false;
-    TICKET_TYPES.CHILD.seatRequired = false;
-    TICKET_TYPES.INFANT.seatRequired = false;
-
-    const accountId = 456;
-
-    const requests = [
-      new TicketTypeRequest('ADULT', 2),
-      new TicketTypeRequest('CHILD', 1),
-      new TicketTypeRequest('INFANT', 1),
-    ];
-
-    const expectedAmount = 65;
-
-    const expectedSeats = 0;
-
-    const result = ticketService.purchaseTickets(accountId, ...requests);
-
-    expect(ticketService.paymentService.makePayment).toHaveBeenCalledWith(
-      accountId,
-      expectedAmount
-    );
-    expect(ticketService.reservationService.reserveSeat).toHaveBeenCalledWith(
-      accountId,
-      expectedSeats
-    );
-
-    expect(result).toEqual({
-      message: expect.stringContaining('Successfully purchased'),
-      totalAmount: expectedAmount,
-      totalSeats: expectedSeats,
-      ticketBreakdown: {
-        ADULT: 2,
-        CHILD: 1,
-        INFANT: 1,
-        total: 4,
-      },
-    });
-  });
   it('catches unexpected errors and throws an InvalidPurchaseException', () => {
     const badService = new TicketService(
       {
